@@ -24,7 +24,11 @@ When installing new Python packages make sure to freeze it:
  If you want to change the port or host you can specify them like this:
  
  `make run HOST="127.0.0.5" port=8081`
- 
+
+### Run interface
+
+`make run-interface`
+
 ## Linting
 Linting the whole project:
 
@@ -34,3 +38,6 @@ Linting the backend:
 
 `make lint-backend`
 
+Linting the frontend:
+
+`make lint-frontend`
