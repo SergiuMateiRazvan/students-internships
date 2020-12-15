@@ -1,8 +1,9 @@
 import fastapi
+from schema import schema_common
 
 router = fastapi.APIRouter()
 
 
-@router.get("/", include_in_schema=False)
+@router.get("/", response_model=schema_common.Response)
 def index():
-    return {"message": "Hello World"}
+    return schema_common.Response(message="Hello World")
