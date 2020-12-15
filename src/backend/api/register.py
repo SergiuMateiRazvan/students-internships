@@ -1,9 +1,9 @@
 import fastapi
-from schema import schema_user
+from schema import schema_common, schema_user
 
 router = fastapi.APIRouter()
 
 
-@router.post("/register/", include_in_schema=False)
-def index(user: schema_user.UserCreate):
-    return {"message": f"User {user} created"}
+@router.post("/register/", response_model=schema_common.Response)
+def register(user: schema_user.UserCreate):
+    return schema_common.Response(message=f"User {user} created")
