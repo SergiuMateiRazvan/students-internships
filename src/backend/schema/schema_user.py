@@ -1,8 +1,17 @@
+from enum import Enum
+
 import pydantic
 
 
+class UserType(str, Enum):
+    STUDENT = "student"
+    COMPANY = "company"
+
+
 class UserBase(pydantic.BaseModel):
-    name: str
+    mail: str
+    password: str
+    user_type: UserType
 
 
 class UserCreate(UserBase):

@@ -41,3 +41,14 @@ Linting the backend:
 Linting the frontend:
 
 `make lint-frontend`
+
+
+## Database operations
+
+We are using a postgresql database called _students_internships_db_. Make sure to create it before running the migration.
+
+To create all tables:
+`make migrate`
+
+To create a new revision:
+`make revision MESSAGE=desired_message`
