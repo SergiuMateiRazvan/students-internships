@@ -32,8 +32,18 @@ lint-backend:
 lint-frontend:
 	cd src/frontend && npm run lint
 
+.PHONY: migrate
+migrate:
+	cd src/backend && alembic upgrade head
+
+.PHONY: revision
+revision:
+	cd src/backend && alembic revision --autogenerate -m "$(MESSAGE)"
+
 .PHONY: lint
 lint: lint-backend lint-frontend
 
 .PHONY: setup
 setup: compile-requirements compile-npm
+
+
