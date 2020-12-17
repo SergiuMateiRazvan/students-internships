@@ -1,11 +1,11 @@
 from logging.config import fileConfig
 import sys
 
-from alembic import context
-from db import base
-from sqlalchemy import engine_from_config, pool
+sys.path.append(".")  # isort:skip
 
-sys.path.append(".")
+from alembic import context  # isort:skip
+from db import base  # isort:skip
+from sqlalchemy import engine_from_config, pool  # isort:skip
 
 
 # this is the Alembic Config object, which provides

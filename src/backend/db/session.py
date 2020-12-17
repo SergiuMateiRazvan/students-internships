@@ -30,7 +30,7 @@ db_url = settings.db_dsn
 
 engine = Engines.get(db_url)
 
-SessionLocal = orm.sessionmaker(autocommit=False, autoflush=True, bind=engine)
+SessionLocal = orm.sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 @contextmanager
