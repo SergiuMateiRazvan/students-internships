@@ -18,8 +18,10 @@ class UserDetailsBase(pydantic.BaseModel):
         return value
 
 
-class UserDetails(UserDetailsBase):
+class UserDetailsCreate(UserDetailsBase):
     pass
 
+
+class UserDetails(UserDetailsBase):
     class Config:
         orm_mode = True
