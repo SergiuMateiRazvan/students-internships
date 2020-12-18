@@ -12,14 +12,24 @@ class UserDetailsBase(pydantic.BaseModel):
     @pydantic.validator("phone")
     def ensure_phone_is_correct(cls, value):
         if len(value) != 10:
-            raise errors.ForbbForbiddenValueError(
-                msg="Phone number needs to have 10 digits"
-            )
+            raise errors.ForbiddenValueError(msg="Phone number needs to have 10 digits")
         return value
 
 
 class UserDetailsCreate(UserDetailsBase):
     pass
+
+
+class UserDetailsUpdate(UserDetailsBase):
+    user_mail: str = None
+    phone: str = None
+    education: typing.Dict[str, str or int] = None
+
+    @pydantic.validator("user_mail")
+    def user_mail_con_not_be_update(cls, value):
+        if value:
+            raise errors.ForbiddenValueError(msg="User mail can't be changed")
+        return value
 
 
 class UserDetails(UserDetailsBase):
