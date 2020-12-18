@@ -1,4 +1,4 @@
-from api import index, register, user_details
+from api import index, user, user_details
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -18,5 +18,5 @@ app.add_middleware(
 )
 
 app.include_router(index.router)
-app.include_router(register.router)
+app.include_router(user.router)
 app.include_router(user_details.router)
