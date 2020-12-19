@@ -9,6 +9,7 @@ class User(base.Base):
     password = base.RequiredColumn(String)
     user_type = Column(String, default="student")
     user_details = relationship("UserDetails", uselist=False)
+    internship = relationship("Internship", uselist=False)
 
 
 class UserDetails(base.Base):
