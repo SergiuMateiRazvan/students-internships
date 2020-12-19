@@ -9,3 +9,13 @@ export const register = (user) => {
     },
   }).then((response) => response.json());
 };
+
+export const login = (user) => {
+  return fetch(`${API_URL}/user/auth/`, {
+    method: 'POST',
+    body: JSON.stringify(user),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+  }).then((response) => response.json());
+};
