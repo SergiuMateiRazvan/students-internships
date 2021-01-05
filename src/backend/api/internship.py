@@ -20,9 +20,16 @@ def add_internship(internship: schema_internship.InternshipCreate):
 
 
 @router.get("/internship/", response_model=typing.List[schema_internship.Internship])
-def get_internships():
+def get_internships(
+    location: typing.Optional[str] = fastapi.Query(""),
+    title: typing.Optional[str] = fastapi.Query(""),
+    sort: typing.Optional[str] = fastapi.Query("start_date"),
+    sort_direction: str = fastapi.Query(None, regex="(^ascending$|^descending$)"),
+):
     with session.get_db_session() as db_session:
-        db_internships = crud_internship.get_all(db_session)
+        db_internships = crud_internship.get_all(
+            db_session, sort, sort_direction, location, title
+        )
         response_internships = []
         for db_internship in db_internships:
             db_internship.start_date = str(db_internship.start_date)
