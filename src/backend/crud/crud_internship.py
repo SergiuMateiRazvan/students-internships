@@ -1,8 +1,24 @@
 from db import base
+from sqlalchemy import desc
 
 
-def get_all(db):
-    return db.query(base.Internship).all()
+def _sort_internships(internships, sort, sort_direction):
+    sort_param = getattr(base.Internship, sort, None)
+    if sort_direction == "descending":
+        sort_params = map(desc, [sort_param])
+        return internships.order_by(*sort_params)
+    return internships.order_by(sort_param)
+
+
+def get_all(db, sort, sort_direction, location, title):
+    internships = _sort_internships(db.query(base.Internship), sort, sort_direction)
+
+    if location:
+        internships = internships.filter(base.Internship.location == location)
+    if title:
+        internships = internships.filter(base.Internship.title.ilike(f"%{title}%"))
+
+    return internships.all()
 
 
 def create_internship(db, internship):
