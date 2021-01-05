@@ -1,8 +1,14 @@
 import {API_URL} from '../common';
 
-export const getInternships = () =>
-  fetch(`${API_URL}/internship/`)
+export const getInternships = (filters, sort) => {
+  const filterQuery = new URLSearchParams(filters);
+  const sortQuery = new URLSearchParams(sort);
+  const baseQuery = `${API_URL}/internship/`;
+  const query = `${baseQuery}/?${[filterQuery, sortQuery]
+      .filter((a)=> a !='null=').join('&')}`;
+  return fetch(query)
       .then((response) => response.json());
+};
 
 export const getInternshipViews = (internshipId) =>
   fetch(`${API_URL}/internship/view/${internshipId}/count/`)
