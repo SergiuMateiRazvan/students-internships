@@ -7,7 +7,7 @@ export const register = (user) => {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-  }).then((response) => response.json());
+  });
 };
 
 export const login = (user) => {
@@ -17,5 +17,5 @@ export const login = (user) => {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-  }).then((response) => response.json());
+  });
 };
