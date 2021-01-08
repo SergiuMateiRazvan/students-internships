@@ -4,7 +4,7 @@ import {isUserAuthenticated} from '../../common';
 import {Redirect} from 'react-router-dom';
 
 const HomePage = () => (
-  isUserAuthenticated() ? <Home/> : <Redirect to={'/register'}/>
+  isUserAuthenticated() ? <Home/> : <Redirect to={'/login'}/>
 );
 
 export default HomePage;

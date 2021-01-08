@@ -3,7 +3,7 @@ import {API_URL} from '../common';
 export const getInternships = (filters, sort) => {
   const filterQuery = new URLSearchParams(filters);
   const sortQuery = new URLSearchParams(sort);
-  const baseQuery = `${API_URL}/internship/`;
+  const baseQuery = `${API_URL}/internship`;
   const query = `${baseQuery}/?${[filterQuery, sortQuery]
       .filter((a)=> a !='null=').join('&')}`;
   return fetch(query)
