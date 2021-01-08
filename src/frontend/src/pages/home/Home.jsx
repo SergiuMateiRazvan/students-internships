@@ -1,9 +1,21 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
+import {InternshipList} from './InternshipList';
+import {getInternships} from '../../service';
 
 export const Home = () => {
+  const [internshipsList, setInternshipList] = useState([]);
+
+
+  useEffect(() => {
+    getInternships().then((response) => {
+      setInternshipList(response);
+    });
+  }, []);
+  console.log(internshipsList.length);
   return (
     <div>
-      This is the homepage
+      <InternshipList internships={internshipsList}/>
     </div>
   );
 };
