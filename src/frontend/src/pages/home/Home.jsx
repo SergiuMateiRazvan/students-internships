@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import {InternshipList} from './InternshipList';
 import {getInternships} from '../../service';
 import {SearchBar} from './SearchBar';
+import {HeaderNav} from '../common/HeaderNav';
 
 export const Home = () => {
   const [internshipsList, setInternshipList] = useState([]);
@@ -22,6 +23,7 @@ export const Home = () => {
 
   return (
     <div className={'outerWrapper'}>
+      <HeaderNav />
       <SearchBar onSearch={onSearch} />
       <InternshipList internships={internshipsList}/>
     </div>
