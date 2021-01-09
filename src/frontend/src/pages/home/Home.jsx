@@ -21,7 +21,7 @@ export const Home = () => {
   };
 
   return (
-    <div>
+    <div className={'outerWrapper'}>
       <SearchBar onSearch={onSearch} />
       <InternshipList internships={internshipsList}/>
     </div>

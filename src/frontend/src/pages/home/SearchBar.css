@@ -1,9 +1,10 @@
 .searchBar {
     position: absolute;
-    left:24%;
+    left:23%;
     top: 5%;
-    width: 55%;
+    width: 56%;
     height: 16%;
+    padding: 0;
 }
 
 .searchBarInput {
