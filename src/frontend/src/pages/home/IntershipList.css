@@ -1,0 +1,25 @@
+.internshipList {
+    list-style-type: none;
+    position: absolute;
+    left:20%;
+    width: 60%;
+}
+
+.listItem {
+    margin : 1em;
+}
+
+.internshipHeader {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: Arial, serif;
+}
+
+.seeMoreBtn {
+    float: right;
+}
+
+.location {
+    font-weight: 350;
+    font-size: 1.4em;
+}
