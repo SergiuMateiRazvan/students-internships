@@ -12,7 +12,7 @@ export const Home = () => {
       setInternshipList(response);
     });
   }, []);
-  console.log(internshipsList.length);
+
   return (
     <div>
       <InternshipList internships={internshipsList}/>
