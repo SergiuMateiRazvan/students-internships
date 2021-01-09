@@ -10,13 +10,15 @@ def _sort_internships(internships, sort, sort_direction):
     return internships.order_by(sort_param)
 
 
-def get_all(db, sort, sort_direction, location, title):
+def get_all(db, sort, sort_direction, location, title, date):
     internships = _sort_internships(db.query(base.Internship), sort, sort_direction)
 
     if location:
         internships = internships.filter(base.Internship.location == location)
     if title:
         internships = internships.filter(base.Internship.title.ilike(f"%{title}%"))
+    if date:
+        internships = internships.filter(base.Internship.start_date == date)
 
     return internships.all()
 
