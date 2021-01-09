@@ -1,0 +1,14 @@
+.searchBar {
+    position: absolute;
+    left:24%;
+    top: 5%;
+    width: 55%;
+    height: 16%;
+}
+
+.searchBarInput {
+    width: 100%;
+    margin: 0;
+    border-radius: 0.2em;
+    transform: scaleY(1.2);
+}

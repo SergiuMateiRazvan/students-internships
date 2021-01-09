@@ -20,7 +20,7 @@ const Internship = ({internship}) => {
             <span className={'location'}>{internship.location}</span>
           </div>
           <div className={'companyBlock'}>
-            <span className={'company'}>{internship.company.mail}</span>
+            <span className={'company'}>{internship.company.name}</span>
           </div>
           <Button className={'seeMoreBtn'} variant={'primary'}>
             See more information</Button>
