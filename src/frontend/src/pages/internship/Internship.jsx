@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {InternshipDescription} from '../common';
 import './Internship.css';
+import {getInternshipViews} from '../../service';
 
 const CompanyDetails = ({company}) => (
   <div className={'companyDetailsBlock'}>
@@ -24,6 +25,15 @@ const CompanyDetails = ({company}) => (
 
 export const Internship = ({history}) => {
   const internship = history.location.state.internship;
+  const [internshipViews, setInternshipViews] = useState(0);
+
+  useEffect(() => {
+    getInternshipViews(internship.internship_id).then((count) => {
+      console.log(count);
+      setInternshipViews(count);
+    });
+  }, []);
+
   return (
     <div className={'outerWrapper'}>
       <div className={'internshipWrapper'}>
@@ -44,6 +54,12 @@ export const Internship = ({history}) => {
         </div>
         {internship.company.user_details &&
       <CompanyDetails company={internship.company.user_details} />
+        }
+        {internshipViews &&
+        <div className={'internshipViewsCount'}>
+          This internship has been viewed by {internshipViews} student
+          {internshipViews > 1 && 's'}
+        </div>
         }
       </div>
     </div>

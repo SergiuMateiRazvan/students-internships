@@ -12,3 +12,7 @@ export const setUserAuthenticated = (userMail) =>
 
 export const setUserLoggedOut = () =>
   sessionStorage.removeItem(USER_KEY);
+
+
+export const getUserEmail = () =>
+  sessionStorage.getItem(USER_KEY);
