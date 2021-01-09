@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {InternshipDescription} from '../common';
 import './Internship.css';
 import {getInternshipViews} from '../../service';
+import {Button} from 'react-bootstrap';
+import {HeaderNav} from '../common/HeaderNav';
 
 const CompanyDetails = ({company}) => (
   <div className={'companyDetailsBlock'}>
@@ -36,6 +38,7 @@ export const Internship = ({history}) => {
 
   return (
     <div className={'outerWrapper'}>
+      <HeaderNav />
       <div className={'internshipWrapper'}>
         <div className={'internshipTitle'}>
           <h1>{internship.title}</h1>
@@ -61,6 +64,7 @@ export const Internship = ({history}) => {
           {internshipViews > 1 && 's'}
         </div>
         }
+        <Button className={'applyBtn'} variant={'primary'}>Apply</Button>
       </div>
     </div>
   );
