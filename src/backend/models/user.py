@@ -16,4 +16,6 @@ class UserDetails(base.Base):
     user_mail = Column(String, ForeignKey(User.mail), primary_key=True)
     phone = Column(String)
     education = Column(postgresql.JSONB)
+    name = Column(String)
+    description = Column(String)
     user = relationship("User", back_populates="user_details")

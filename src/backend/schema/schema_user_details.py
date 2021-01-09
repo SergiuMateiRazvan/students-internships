@@ -8,6 +8,8 @@ class UserDetailsBase(pydantic.BaseModel):
     user_mail: str
     phone: str
     education: typing.Dict[str, str or int]
+    name: str
+    description: str
 
     @pydantic.validator("phone")
     def ensure_phone_is_correct(cls, value):
@@ -24,9 +26,11 @@ class UserDetailsUpdate(UserDetailsBase):
     user_mail: str = None
     phone: str = None
     education: typing.Dict[str, str or int] = None
+    name: str = None
+    description: str = None
 
     @pydantic.validator("user_mail")
-    def user_mail_con_not_be_update(cls, value):
+    def user_mail_can_not_be_update(cls, value):
         if value:
             raise errors.ForbiddenValueError(msg="User mail can't be changed")
         return value
