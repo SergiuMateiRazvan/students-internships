@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './InternshipList.css';
+import PropTypes, {string} from 'prop-types';
+import './InternshipDescription.css';
 
 const Skills = ({skills}) => (
   <div className={'skillsListWrapper'}>
@@ -15,17 +15,31 @@ const Skills = ({skills}) => (
   </div>
 );
 
-const Benefits = ({benefits}) => {
-  return (
-    <></>
-  );
-};
+const Benefits = ({benefits}) => (
+  <div className={'benefitsWrapper'}>
+    <h5 className={'benefitsTitle'}>Benefits</h5>
+    <ul className={'benefitsList'}>
+      {benefits && benefits.length && benefits.map((benefit) => (
+        <li key={benefit}>{benefit}</li>
+      ))}
+    </ul>
+  </div>
+);
+
+const Details = ({details}) => (
+  <div className={'detailsWrapper'}>
+    <pre>
+      {details}
+    </pre>
+  </div>
+);
 
 export const InternshipDescription = ({description, expanded}) => {
   return (
     <div className={'internshipDescriptionWrapper'}>
       <Skills skills={description.skills} />
       {expanded && <Benefits benefits={description.benefits}/>}
+      {expanded && <Details details={description.details} />}
     </div>
   );
 };
@@ -47,3 +61,9 @@ Skills.propTypes = {
 Benefits.propTypes = {
   benefits: PropTypes.array,
 };
+
+Details.propTypes = {
+  details: string,
+};
+
+

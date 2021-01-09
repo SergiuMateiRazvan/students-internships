@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import {Button, Card} from 'react-bootstrap';
 import {InternshipDescription} from '../common';
 import './IntershipList.css';
+import {useHistory} from 'react-router-dom';
 
-const Internship = ({internship}) => {
+const Internship = ({internship, onSeeMore}) => {
   return (
     <li className={'listItem'}>
       <Card>
@@ -12,6 +13,11 @@ const Internship = ({internship}) => {
           {internship.title}
         </Card.Header>
         <Card.Body>
+          <div className={'startDate'}>
+            Starting from <span className={'startDate'}>
+              {internship.start_date}
+            </span>
+          </div>
           <InternshipDescription
             description={internship.description}
             expanded={false}
@@ -24,8 +30,13 @@ const Internship = ({internship}) => {
               {internship.company.user_details.name}
             </span>
           </div>
-          <Button className={'seeMoreBtn'} variant={'primary'}>
-            See more information</Button>
+          <Button
+            className={'seeMoreBtn'}
+            variant={'primary'}
+            onClick={() => onSeeMore(internship)}
+          >
+            See more information
+          </Button>
         </Card.Body>
       </Card>
     </li>
@@ -33,10 +44,19 @@ const Internship = ({internship}) => {
 };
 
 export const InternshipList = ({internships}) => {
+  const history = useHistory();
+  const onNavigateToInternship = (internship) => {
+    history.push('/internship', {internship: internship});
+  };
+
   return (
     <ul className={'internshipList'}>
       {internships && internships.length && internships.map((internship) =>
-        <Internship internship={internship} key={internship.id}/>,
+        <Internship
+          internship={internship}
+          key={internship.id}
+          onSeeMore={onNavigateToInternship}
+        />,
       )}
     </ul>
   );
@@ -48,5 +68,6 @@ InternshipList.propTypes = {
 
 Internship.propTypes = {
   internship: PropTypes.object,
+  onSeeMore: PropTypes.func,
 };
 

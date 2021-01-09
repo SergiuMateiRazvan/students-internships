@@ -1,0 +1,26 @@
+.skillsListWrapper, .benefitsWrapper {
+}
+
+
+.skillsList, .benefitList {
+    list-style-type: square;
+}
+
+.skillsListTitle, .benefitsTitle {
+    font-weight: 350;
+    text-decoration: underline;
+    text-decoration: underline;
+
+}
+
+.internshipDescriptionWrapper {
+    margin: 0.3em;
+}
+
+.detailsWrapper {
+    font-size: 1.5em;
+}
+
+.companyDetailsBlock {
+
+}
