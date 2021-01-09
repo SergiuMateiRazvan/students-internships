@@ -54,7 +54,7 @@ export const InternshipList = ({internships}) => {
 
   return (
     <ul className={'internshipList'}>
-      {internships && internships.length && internships.map((internship) =>
+      {internships && internships.map((internship) =>
         <Internship
           internship={internship}
           key={internship.id}

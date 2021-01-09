@@ -1,24 +1,22 @@
-.sortDiv {
+.filterSection {
     position: absolute;
-    top: 12%;
+    top: 30%;
     left: 8%;
     background-color: white;
     width: 14%;
-    height: 15%;
+    height: fit-content;
     border-radius: 3px;
     padding: 5px;
     box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.4);
+    z-index: 1;
 }
 
-.sortTitle {
+.filterSectionTitle {
     font-weight: 550;
-    font-size: 1.2em;
+    font-size: 1.22em;
 }
 
-input[type=radio] {
-    display: inline-block;
-}
-
-.sortDirection {
-    margin-top: 15px;
+.filterOptionTitle {
+    display: block;
+    margin-top: 10px;
 }
