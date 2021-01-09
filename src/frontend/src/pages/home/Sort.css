@@ -1,0 +1,24 @@
+
+.sortDiv {
+    position: absolute;
+    top: 12%;
+    left: 8%;
+    background-color: white;
+    width: 14%;
+    height: 15%;
+    border-radius: 3px;
+    padding: 5px;
+    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.4);
+}
+
+.sortTitle {
+    font-weight: 550;
+}
+
+input[type=radio] {
+    display: inline-block;
+}
+
+.sortDirection {
+    margin-top: 15px;
+}
