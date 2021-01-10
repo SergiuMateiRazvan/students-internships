@@ -10,6 +10,16 @@ export const getInternships = (filters, sort) => {
       .then((response) => response.json());
 };
 
+
+export const postInternship = (internshipPost) =>
+  fetch(`${API_URL}/internship`, {
+    method: 'POST',
+    body: JSON.stringify(internshipPost),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+  });
+
 export const getInternshipViews = (internshipId) =>
   fetch(`${API_URL}/internship/view/${internshipId}/count/`)
       .then((response) =>response.json());
