@@ -25,3 +25,12 @@ def get_user_by_mail(credentials: schema_user.UserAuth):
         if db_user and db_user.password == credentials.password:
             return schema_user.UserGet.from_orm(db_user)
         raise fastapi.HTTPException(status_code=404, detail="User not found")
+
+
+@router.get("/user/{mail}/", response_model=schema_user.User)
+def get_user_by_mail(mail: str):
+    with session.get_db_session() as db_session:
+        db_user = crud_user.get_user_by_mail(db_session, mail)
+        if db_user:
+            return schema_user.User.from_orm(db_user)
+        raise fastapi.HTTPException(status_code=404, detail="User not found")

@@ -36,7 +36,7 @@ export const InternshipForm = () => {
   return (
     <div className={'formWrapper'}>
       <HeaderNav />
-      <form className={'authBody'} onSubmit={onPostInternship}>
+      <form className={'formBody'} onSubmit={onPostInternship}>
         <h3>Post an internship</h3>
 
         <div className="form-group">
