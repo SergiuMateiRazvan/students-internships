@@ -29,3 +29,7 @@ export const addInternshipView = (internshipId, userMail) =>
     method: 'POST',
     body: JSON.stringify({user_mail: userMail, internship_id: internshipId}),
   });
+
+export const getInternshipViewers = (internshipId) =>
+  fetch(`${API_URL}/internship/view/${internshipId}/viewers/`)
+      .then((response) => response.json());

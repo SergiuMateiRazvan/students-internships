@@ -58,3 +58,12 @@ def add_internship_view(view: schema_internship.InternshipView):
 def get_internship_count(internship_id: int):
     with session.get_db_session() as db_session:
         return crud_internship_view.get_count_for_internship(db_session, internship_id)
+
+
+@router.get(
+    "/internship/view/{internship_id}/viewers/", response_model=typing.List[str]
+)
+def get_viewers(internship_id: int):
+    with session.get_db_session() as db_session:
+        viewers = crud_internship_view.get_viewers(db_session, internship_id)
+        return [viewer[0] for viewer in viewers]
