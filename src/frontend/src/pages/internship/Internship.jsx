@@ -2,9 +2,15 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {InternshipDescription} from '../common';
 import './Internship.css';
-import {getInternshipViews} from '../../service';
+import {
+  getInternshipViews,
+  getInternshipViewers,
+  addInternshipView,
+} from '../../service';
 import {Button} from 'react-bootstrap';
 import {HeaderNav} from '../common/HeaderNav';
+import {getUser} from '../../service/Profile';
+import {getUserEmail} from '../../common';
 
 const CompanyDetails = ({company}) => (
   <div className={'companyDetailsBlock'}>
@@ -28,10 +34,23 @@ const CompanyDetails = ({company}) => (
 export const Internship = ({history}) => {
   const internship = history.location.state.internship;
   const [internshipViews, setInternshipViews] = useState(0);
+  const [isUserCompany, setIsUserCompany] = useState(false);
+  const [viewersEmails, setViewersEmails] = useState([]);
 
   useEffect(() => {
+    getUser(getUserEmail()).then((response) => {
+      if (response.user_type==='company') {
+        if (response.mail === internship.company_mail) {
+          setIsUserCompany(true);
+          getInternshipViewers(internship.internship_id).then((response) =>
+            setViewersEmails(response),
+          );
+        }
+      } else {
+        addInternshipView(internship.internship_id, getUserEmail());
+      }
+    });
     getInternshipViews(internship.internship_id).then((count) => {
-      console.log(count);
       setInternshipViews(count);
     });
   }, []);
@@ -58,14 +77,26 @@ export const Internship = ({history}) => {
         {internship.company.user_details &&
       <CompanyDetails company={internship.company.user_details} />
         }
-        {internshipViews &&
+        {internshipViews > 0 ?
         <div className={'internshipViewsCount'}>
           This internship has been viewed by {internshipViews} student
           {internshipViews > 1 && 's'}
-        </div>
+        </div>:<></>
         }
-        <Button className={'applyBtn'} variant={'primary'}>Apply</Button>
+        {isUserCompany ? <></> :
+          <Button className={'applyBtn'} variant={'primary'}>Apply</Button>
+        }
       </div>
+      {isUserCompany ? (<div className={'applicantsWrapper'}>
+        <h2>Viewers</h2>
+        <ul>
+          {viewersEmails && viewersEmails.map((userEmail) => (
+            <li key={userEmail}>{userEmail}</li>
+          ))}
+        </ul>
+      </div>) :
+        <></>
+      }
     </div>
   );
 };

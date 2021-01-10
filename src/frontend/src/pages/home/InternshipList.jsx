@@ -4,8 +4,6 @@ import {Button, Card} from 'react-bootstrap';
 import {InternshipDescription} from '../common';
 import './IntershipList.css';
 import {useHistory} from 'react-router-dom';
-import {addInternshipView} from '../../service';
-import {getUserEmail} from '../../common';
 
 const Internship = ({internship, onSeeMore}) => {
   return (
@@ -48,7 +46,6 @@ const Internship = ({internship, onSeeMore}) => {
 export const InternshipList = ({internships}) => {
   const history = useHistory();
   const onNavigateToInternship = (internship) => {
-    addInternshipView(internship.internship_id, getUserEmail());
     history.push('/internship', {internship: internship});
   };
 

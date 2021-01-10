@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {getUserEmail} from '../../common';
-import {addUserDetails, getUserDetails} from '../../service/Profile';
+import {addUserDetails, getUser, getUserDetails} from '../../service/Profile';
 import {HeaderNav} from '../common/HeaderNav';
 
 const initialDetails = {
@@ -13,6 +13,8 @@ const initialDetails = {
 
 export const Profile = () => {
   const [userDetails, setUserDetails] = useState(initialDetails);
+  const [isUserCompany, setIsUserCompany] = useState(false);
+
   const userMail = getUserEmail();
   const updateUserDetails = () => {
     getUserDetails(userMail).then((response) => {
@@ -25,18 +27,24 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    console.log(userDetails);
+    getUser(getUserEmail()).then((response) => {
+      setIsUserCompany(response.user_type==='company');
+    });
     updateUserDetails();
   }, []);
 
   const onUpdateInfo = (ev) => {
     ev.preventDefault();
     const education = {};
-    const educationItems = ev.target[2].value.split(',');
-    for (let i=0; i<educationItems.length; i++) {
-      if (educationItems[i].length > 0) {
-        const items = educationItems[i].split(':');
-        education[items[0]] = items[1];
+    if (isUserCompany) {
+      education['company'] = 'no education';
+    } else {
+      const educationItems = ev.target[2].value.split(',');
+      for (let i = 0; i < educationItems.length; i++) {
+        if (educationItems[i].length > 0) {
+          const items = educationItems[i].split(':');
+          education[items[0]] = items[1];
+        }
       }
     }
     const updateInfo = {
@@ -83,7 +91,7 @@ export const Profile = () => {
           />
         </div>
 
-        <div className="form-group">
+        {isUserCompany ? <></>: <div className="form-group">
           <label>Education</label>
           <textarea
             className="form-control"
@@ -92,7 +100,7 @@ export const Profile = () => {
             in this format: education_type: institution_name
             separated by commas"
           />
-        </div>
+        </div>}
 
         <div className="form-group">
           <label>Phone number</label>

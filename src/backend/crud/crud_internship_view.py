@@ -17,3 +17,13 @@ def get_count_for_internship(db, internship_id):
         .filter(base.InternshipView.internship_id == internship_id)
         .count()
     )
+
+
+def get_viewers(db, internship_id):
+    return list(
+        db.query(base.InternshipView)
+        .filter(base.InternshipView.internship_id == internship_id)
+        .join(base.User)
+        .filter(base.User.mail == base.InternshipView.user_mail)
+        .values("user_mail")
+    )
