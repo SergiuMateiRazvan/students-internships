@@ -2,6 +2,7 @@ import React from 'react';
 import HomePage from './pages/home';
 import {Register, Login} from './pages/auth';
 import {Internship} from './pages/internship/Internship';
+import InternshipFormPost from './pages/post';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, Redirect}
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/internship" component={Internship} />
+        <Route path="/internship-post" component={InternshipFormPost} />
         <Route exact path='*'>
           <Redirect to={'/'}/>
         </Route>
