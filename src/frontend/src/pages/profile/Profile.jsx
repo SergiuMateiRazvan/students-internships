@@ -15,6 +15,14 @@ export const Profile = () => {
   const [userDetails, setUserDetails] = useState(initialDetails);
   const [isUserCompany, setIsUserCompany] = useState(false);
 
+  const getFormattedEducation = ((education) => {
+    const arr = [];
+    for (const i of Object.entries(education)) {
+      arr.push(i.join(':'));
+    }
+    return arr.join(',');
+  });
+
   const userMail = getUserEmail();
   const updateUserDetails = () => {
     getUserDetails(userMail).then((response) => {
@@ -99,6 +107,7 @@ export const Profile = () => {
             placeholder="Enter you education
             in this format: education_type: institution_name
             separated by commas"
+            defaultValue={getFormattedEducation(userDetails.education)}
           />
         </div>}
 
