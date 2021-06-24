@@ -2,6 +2,7 @@ from api import errors
 from crud import crud_user, crud_user_details
 from db import session
 import fastapi
+from rabbitmq import Message, publish_message
 from schema import schema_common, schema_user_details
 
 router = fastapi.APIRouter()
@@ -23,6 +24,7 @@ def add_user_details(details: schema_user_details.UserDetailsCreate):
         db_user_details = crud_user_details.create_user_details(
             db_session, details, db_user
         )
+        publish_message(_get_message_from_details(db_user_details))
         return schema_user_details.UserDetails.from_orm(db_user_details)
 
 
@@ -37,6 +39,10 @@ def get_user_details_by_mail(mail: str):
         return schema_user_details.UserDetails.from_orm(db_user_details)
 
 
+def _get_message_from_details(db_user_details) -> Message:
+    return Message(db_user_details.user_mail, db_user_details.description)
+
+
 @router.patch("/user/details/{mail}/", response_model=schema_user_details.UserDetails)
 def update_user_details(user_details: schema_user_details.UserDetailsUpdate, mail: str):
     try:
@@ -47,6 +53,7 @@ def update_user_details(user_details: schema_user_details.UserDetailsUpdate, mai
 
             if db_user_details is None:
                 raise fastapi.HTTPException(status_code=404, detail="User not found")
+            publish_message(_get_message_from_details(db_user_details))
             return schema_user_details.UserDetails.from_orm(db_user_details)
     except errors.ForbiddenValueError as error:
         raise fastapi.HTTPException(status_code=422, detail=error.msg)

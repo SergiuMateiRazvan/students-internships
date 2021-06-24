@@ -36,7 +36,7 @@ export const updateUserDetails = (userDetails) => {
   }
 
 
-  return fetch(`${API_URL}/user/details/${mail}`, {
+  return fetch(`${API_URL}/user/details/${mail}/`, {
     method: 'PATCH',
     body: JSON.stringify(userDetails),
     headers: {

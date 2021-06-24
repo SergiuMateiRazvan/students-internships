@@ -22,12 +22,12 @@ class UserDetailsCreate(UserDetailsBase):
     pass
 
 
-class UserDetailsUpdate(UserDetailsBase):
-    user_mail: str = None
-    phone: str = None
-    education: typing.Dict[str, str or int] = None
-    name: str = None
-    description: str = None
+class UserDetailsUpdate(pydantic.BaseModel):
+    user_mail: typing.Optional[str] = None
+    phone: typing.Optional[str] = None
+    education: typing.Optional[typing.Dict[str, str or int]] = None
+    name: typing.Optional[str] = None
+    description: typing.Optional[str] = None
 
     @pydantic.validator("user_mail")
     def user_mail_can_not_be_update(cls, value):

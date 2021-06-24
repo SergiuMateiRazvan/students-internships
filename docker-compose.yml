@@ -1,0 +1,52 @@
+version: "3"
+services:
+  students-internships:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    expose:
+      - 8000
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      DATABASE_DSN: "postgres://root:root@db:5432"
+      PGUSER: "root"
+      PGDATABASE: "students_internships_db"
+      PGHOST: "db"
+    network_mode: host
+
+  db:
+    image: postgres:12.3
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  interface:
+    build:
+      context: .
+      dockerfile: Dockerfile.interface
+    ports:
+      - "3000:3000"
+
+  censor:
+    build:
+      context: .
+      dockerfile: Dockerfile.censor
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rabbitmq
+    network_mode: host
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    domainname: rabbitmq.com
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
