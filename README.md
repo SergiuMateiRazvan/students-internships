@@ -1,5 +1,15 @@
 # students-internships
 
+## Description
+
+The system consists of 5 docker containers running small microservices:
+
+1. Interface -> a web application for students internships
+2. Students-internships -> a fastapi server serving the web application
+3. DB -> a postgresql database
+4. Censor -> a censoring script that takes descriptions from students details and removes profanity
+5. RabbitMQ -> a rabbitmq queue that is used in the censoring process
+
 ## Dev Setup
 
 Before installing any Python packages it would be better to create a virtual environment for the app. Best to use pyenv.
@@ -16,6 +26,20 @@ When installing new Python packages make sure to freeze it:
 `make freeze-requirements`
 (Be sure that you are in the virtual env for the project and not add unnecessary packages)
 
+
+## Running docker containers
+
+`make wakeup-database` -> creates the db
+
+`make build` -> builds all containers
+
+`make compose-interface` -> runs the web app
+
+`make compose-service` -> runs the fastapi server
+
+`make compose-rabbit` -> runs the queue
+
+`make compose-censor` -> runs the censoring script
 
 ## Run App
 
@@ -52,3 +76,4 @@ To create all tables:
 
 To create a new revision:
 `make revision MESSAGE=desired_message`
+
