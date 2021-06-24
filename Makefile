@@ -57,6 +57,7 @@ build:
 	docker-compose build students-internships
 	docker-compose build interface
 	docker-compose build censor
+	docker-compose build rabbitmq
 
 .PHONY: wakeup-database
 wakeup-database:
@@ -80,3 +81,7 @@ compose-interface:
 .PHONY: compose-censor
 compose-censor:
 	docker-compose up censor
+
+.PHONY: compose-rabbit
+compose-rabbit:
+	docker-compose up rabbit
