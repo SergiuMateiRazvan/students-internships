@@ -28,12 +28,16 @@ class UserDetailsUpdate(pydantic.BaseModel):
     education: typing.Optional[typing.Dict[str, str or int]] = None
     name: typing.Optional[str] = None
     description: typing.Optional[str] = None
+    no_update: bool = False
 
     @pydantic.validator("user_mail")
     def user_mail_can_not_be_update(cls, value):
         if value:
             raise errors.ForbiddenValueError(msg="User mail can't be changed")
         return value
+
+    class Config:
+        orm_mode = True
 
 
 class UserDetails(UserDetailsBase):

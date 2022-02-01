@@ -50,3 +50,29 @@ services:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 
+
+  moderation_backend:
+    build:
+      context: src/moderation_backend
+    ports:
+      - "5005:5005"
+    depends_on:
+      - redis
+      - rabbitmq
+    network_mode: host
+
+  moderation_frontend:
+    build:
+      context: src/moderation_frontend
+    ports:
+      - "3001:3001"
+
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./config/redis.conf:/redis.conf
+    command: [ "redis-server", "/redis.conf" ]
+
+

@@ -53,11 +53,12 @@ setup: compile-requirements compile-npm
 
 
 .PHONY: build
-build:
+build: build-moderation
 	docker-compose build students-internships
 	docker-compose build interface
 	docker-compose build censor
 	docker-compose build rabbitmq
+
 
 .PHONY: wakeup-database
 wakeup-database:
@@ -69,6 +70,12 @@ wakeup-database:
 
 .PHONY: docker-clean
 docker-clean: docker-clean-containers docker-clean-images
+
+docker-clean-images:
+	docker images -q -f="dangling=true" | xargs docker rmi
+
+docker-clean-containers:
+	docker ps -aq | xargs docker rm -f
 
 .PHONY: compose-service
 compose-service:
@@ -84,4 +91,27 @@ compose-censor:
 
 .PHONY: compose-rabbit
 compose-rabbit:
-	docker-compose up rabbit
+	docker-compose up rabbitmq
+
+.PHONY: compose-mb
+compose-mb:
+	docker-compose up moderation_backend
+
+.PHONY: compose-mf
+compose-mf:
+	docker-compose up moderation_frontend
+
+.PHONY: build-moderation
+build-moderation: build-mb build-mf
+
+.PHONY: build-mf
+build-mf:
+	docker-compose build moderation_frontend
+
+.PHONY: build-mb
+build-mb:
+	docker-compose build moderation_backend
+
+.PHONY: compose-redis
+compose-redis:
+	docker-compose up redis

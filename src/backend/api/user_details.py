@@ -47,13 +47,16 @@ def _get_message_from_details(db_user_details) -> Message:
 def update_user_details(user_details: schema_user_details.UserDetailsUpdate, mail: str):
     try:
         with session.get_db_session() as db_session:
+            no_update = user_details.no_update
+            del user_details.no_update
             db_user_details = crud_user_details.update_user_details(
                 db_session, mail=mail, update_data=user_details.dict(exclude_unset=True)
             )
 
             if db_user_details is None:
                 raise fastapi.HTTPException(status_code=404, detail="User not found")
-            publish_message(_get_message_from_details(db_user_details))
+            if not no_update:
+                publish_message(_get_message_from_details(db_user_details))
             return schema_user_details.UserDetails.from_orm(db_user_details)
     except errors.ForbiddenValueError as error:
         raise fastapi.HTTPException(status_code=422, detail=error.msg)
